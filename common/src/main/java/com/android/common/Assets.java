@@ -13,6 +13,7 @@ import java.io.InputStream;
  * Created by guohao4 on 2017/8/7.
  * Email: Tornaco@163.com
  */
+@SuppressWarnings("ConstantConditions")
 public class Assets {
 
     public static void copyFromAssetsTo(String from, String to) throws IOException {
@@ -27,7 +28,7 @@ public class Assets {
 
         File tmp = new File(InstrumentationRegistry
                 .getTargetContext()
-                .getCacheDir().getPath()
+                .getExternalCacheDir().getPath()
                 + File.separator + from);
         Files.createParentDirsInShell(tmp);
 
