@@ -1,5 +1,7 @@
 # TestCommon
 
+[![](https://jitpack.io/v/Tornaco/TestCommon.svg)](https://jitpack.io/#Tornaco/TestCommon)
+
 Add it in your root build.gradle at the end of repositories:
 
 ```
