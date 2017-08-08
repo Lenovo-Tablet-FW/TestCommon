@@ -15,10 +15,12 @@ import java.io.IOException;
  * Email: Tornaco@163.com
  */
 
+@SuppressWarnings("ConstantConditions")
 public class PackageInstaller {
 
     public static void installFromAssets(String name) throws IOException {
-        String tmpPath = com.google.common.io.Files.createTempDir().getPath() + File.separator + "tmp.apk";
+        String tmpPath = InstrumentationRegistry.getTargetContext()
+                .getExternalCacheDir().getPath() + File.separator + "tmp.apk";
         Assets.copyFromAssetsTo(name, tmpPath);
         Logger.i("Installing with tmp apk: %s", tmpPath);
         String cmd = String.format("pm install -r %s", tmpPath);
