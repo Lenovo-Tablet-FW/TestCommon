@@ -1,5 +1,7 @@
 package com.android.common;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
@@ -21,5 +23,12 @@ public class Locations {
                         : String.format("settings put secure location_providers_allowed %s", "-gps");
         String res = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).executeShellCommand(cmd);
         Assert.assertTrue("Fail toggle gps", res == null || !res.contains("Err"));
+    }
+
+    public static boolean isGpsProviderEnabled() {
+        LocationManager manager = (LocationManager) InstrumentationRegistry.getTargetContext()
+                .getSystemService(Context.LOCATION_SERVICE);
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 }

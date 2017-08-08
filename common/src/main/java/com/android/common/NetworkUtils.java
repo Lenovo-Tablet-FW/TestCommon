@@ -21,6 +21,13 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 
+import org.newstand.logger.Logger;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public abstract class NetworkUtils {
     /**
      * Check if we have a network connection.
@@ -80,5 +87,24 @@ public abstract class NetworkUtils {
             }
         }
         return state;
+    }
+
+    public static boolean ping(String addr) {
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec("ping -c 2 -w 20 " + addr);
+            int status = p.waitFor();
+            InputStream input = p.getInputStream();
+            BufferedReader in = new BufferedReader(new InputStreamReader(input));
+            StringBuilder buffer = new StringBuilder();
+            String line;
+            while ((line = in.readLine()) != null) {
+                buffer.append(line);
+            }
+            Logger.i("Ping res: %s", buffer.toString());
+            return status == 0;
+        } catch (IOException | InterruptedException e) {
+            return false;
+        }
     }
 }
