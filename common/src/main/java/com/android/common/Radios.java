@@ -1,5 +1,6 @@
 package com.android.common;
 
+import android.provider.Settings;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
@@ -18,5 +19,11 @@ public class Radios {
         String cmd = String.format("settings put global airplane_mode_on %s", on ? "1" : "0");
         String res = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).executeShellCommand(cmd);
         Assert.assertTrue("Fail toggle AMP mode", res == null || !res.contains("Err"));
+    }
+
+    public static boolean isAPM() {
+        return Settings.System.getInt(InstrumentationRegistry.getTargetContext()
+                        .getContentResolver(),
+                Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
 }
