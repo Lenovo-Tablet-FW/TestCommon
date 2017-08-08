@@ -9,6 +9,7 @@ import android.support.test.uiautomator.UiSelector;
 import android.widget.Switch;
 
 import org.junit.Assert;
+import org.newstand.logger.Logger;
 
 /**
  * Created by Nick on 2017/6/9 13:20
@@ -96,6 +97,97 @@ public class SystemUITransactionHelper implements SystemUIControl {
                     return Res.from(o.swipeUp(10));
                 } catch (UiObjectNotFoundException e) {
                     return Res.fail(e);
+                }
+            }
+        };
+    }
+
+    @Override
+    public SystemUITransaction addTile(final StatusBarToggle t) {
+        return new BaseTransaction(this) {
+            @Override
+            Res execute() {
+                boolean exists = false;
+                // Check if exists.
+                switch (t) {
+                    case DolbyProfile:
+                        // Find UI Object.
+                        String[] maybe = {"DOLBY OFF", "Movie", "Music", "Game", "Voice"};
+                        for (String aMaybe : maybe) {
+                            UiObject btn = mDevice.findObject(new UiSelector()
+                                    .textContains(aMaybe));
+                            if (btn.waitForExists(UI_OBJECT_WAIT_TIMEOUT)) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        break;
+
+                    default:
+                        // Find UI Object.
+                        UiObject btn = mDevice.findObject(new UiSelector()
+                                .descriptionContains(t.getDesc()));
+                        exists = btn.waitForExists(UI_OBJECT_WAIT_TIMEOUT);
+                        break;
+                }
+
+                if (exists) {
+                    Logger.i("Toggle %s already exist.", t.name());
+                    return Res.ok();
+                }
+
+                // Try add this tile.
+                // 1. Find edit btn.
+                UiObject editBtn = mDevice.findObject(new UiSelector().resourceId("com.android.systemui:id/editor_button"));
+                if (!editBtn.exists() && !editBtn.waitForExists(UI_OBJECT_WAIT_TIMEOUT)) {
+                    return Res.fail("Could not find edit button.");
+                }
+                try {
+                    editBtn.clickAndWaitForNewWindow(NEW_WINDOW_WAIT_TIMEOUT);
+                } catch (UiObjectNotFoundException e) {
+                    return Res.fail(e);
+                }
+
+                // 2. Find target tile.
+                UiObject tileView = null;
+                switch (t) {
+                    case DolbyProfile:
+                        // Find UI Object.
+                        String[] maybe = {"DOLBY OFF", "Movie", "Music", "Game", "Voice"};
+                        for (String s : maybe) {
+                            tileView = mDevice.findObject(new UiSelector()
+                                    .textContains(s));
+                            if (tileView.waitForExists(UI_OBJECT_WAIT_TIMEOUT)) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        break;
+
+                    default:
+                        // Find UI Object.
+                        tileView = mDevice.findObject(new UiSelector()
+                                .descriptionContains(t.getDesc()));
+                        exists = tileView.waitForExists(UI_OBJECT_WAIT_TIMEOUT);
+                        break;
+                }
+
+                if (!exists) {
+                    return Res.fail("Could not find tile:" + t);
+                }
+
+                // 3. Drag toggle.
+                try {
+                    return Res.from(mDevice.drag(
+                            tileView.getBounds().centerX(),
+                            tileView.getBounds().centerY(),
+                            0,
+                            0,
+                            1000));
+                } catch (UiObjectNotFoundException e) {
+                    return Res.fail(e);
+                } finally {
+                    mDevice.pressBack();
                 }
             }
         };

@@ -24,6 +24,8 @@ public interface SystemUIControl {
 
     SystemUITransaction unLock();
 
+    SystemUITransaction addTile(StatusBarToggle toggle);
+
     SystemUITransaction toggle(StatusBarToggle toggle, boolean on);
 
     SystemUITransaction longClickToggle(StatusBarToggle toggle);
