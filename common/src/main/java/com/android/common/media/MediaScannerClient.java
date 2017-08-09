@@ -8,7 +8,7 @@ import android.support.test.InstrumentationRegistry;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
-class MediaScannerClient implements MediaScannerConnection.MediaScannerConnectionClient {
+public class MediaScannerClient implements MediaScannerConnection.MediaScannerConnectionClient {
 
     private ArrayList<String> mPaths = new ArrayList<>();
 
@@ -18,7 +18,7 @@ class MediaScannerClient implements MediaScannerConnection.MediaScannerConnectio
 
     private Runnable mRunnable;
 
-    static void scanSync(String path) throws InterruptedException {
+    public static void scanSync(String path) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
         new MediaScannerClient(InstrumentationRegistry.getTargetContext())
                 .scanPath(path, new Runnable() {
@@ -30,11 +30,11 @@ class MediaScannerClient implements MediaScannerConnection.MediaScannerConnectio
         latch.await();
     }
 
-    MediaScannerClient(Context context) {
+    public MediaScannerClient(Context context) {
         mScannerConnection = new MediaScannerConnection(context, this);
     }
 
-    void scanPath(String path, Runnable doOnComplete) {
+    public void scanPath(String path, Runnable doOnComplete) {
         mRunnable = doOnComplete;
         if (mConnected) {
             mScannerConnection.scanFile(path, null);
@@ -44,7 +44,7 @@ class MediaScannerClient implements MediaScannerConnection.MediaScannerConnectio
         }
     }
 
-    void scanPath(String path) {
+    public void scanPath(String path) {
         scanPath(path, null);
     }
 
