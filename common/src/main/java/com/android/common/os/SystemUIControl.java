@@ -1,4 +1,4 @@
-package com.android.common;
+package com.android.common.os;
 
 /**
  * Created by Nick on 2017/6/9 13:31

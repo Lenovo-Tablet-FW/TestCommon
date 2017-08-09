@@ -1,7 +1,9 @@
-package com.android.common;
+package com.android.common.io;
 
 import android.content.res.AssetManager;
 import android.support.test.InstrumentationRegistry;
+
+import com.android.common.io.Files;
 
 import org.junit.Assert;
 

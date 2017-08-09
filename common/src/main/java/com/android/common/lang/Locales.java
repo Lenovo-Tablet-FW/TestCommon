@@ -1,4 +1,4 @@
-package com.android.common;
+package com.android.common.lang;
 
 import android.content.res.Configuration;
 import android.support.test.InstrumentationRegistry;

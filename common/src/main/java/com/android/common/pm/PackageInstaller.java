@@ -1,7 +1,9 @@
-package com.android.common;
+package com.android.common.pm;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
+
+import com.android.common.io.Assets;
 
 import junit.framework.Assert;
 

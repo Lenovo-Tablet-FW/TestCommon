@@ -1,4 +1,4 @@
-package com.android.common;
+package com.android.common.os;
 
 import android.provider.Settings;
 import android.support.test.InstrumentationRegistry;

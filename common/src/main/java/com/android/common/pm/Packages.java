@@ -1,4 +1,4 @@
-package com.android.common;
+package com.android.common.pm;
 
 import android.content.pm.PackageManager;
 import android.support.test.InstrumentationRegistry;

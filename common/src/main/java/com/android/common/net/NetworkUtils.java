@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.common;
+package com.android.common.net;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

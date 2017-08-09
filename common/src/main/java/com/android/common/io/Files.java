@@ -1,4 +1,4 @@
-package com.android.common;
+package com.android.common.io;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;

@@ -1,5 +1,8 @@
 package com.android.common;
 
+import com.android.common.os.StatusBarToggle;
+import com.android.common.os.SystemUITransactionHelper;
+
 import org.junit.Test;
 
 /**

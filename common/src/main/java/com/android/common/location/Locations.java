@@ -1,4 +1,4 @@
-package com.android.common;
+package com.android.common.location;
 
 import android.content.Context;
 import android.location.LocationManager;

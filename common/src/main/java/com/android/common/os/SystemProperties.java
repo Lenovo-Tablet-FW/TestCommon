@@ -1,4 +1,6 @@
-package com.android.common;
+package com.android.common.os;
+
+import com.android.common.lang.ReflectionUtils;
 
 import org.junit.Assert;
 
