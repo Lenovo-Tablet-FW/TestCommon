@@ -11,7 +11,7 @@ public enum StatusBarToggle {
     APM("Airplane mode"),
     AutoRotate("Auto-rotate"),
     DolbyProfile(""),
-    Screenshot("Screenshot"),
+    Screenshot("Screen Shot"),
     GPS("Location");
 
     private String desc;
